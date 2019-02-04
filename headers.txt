@@ -1,0 +1,114 @@
+==============================================================================
+#                                headers.txt                                 #
+==============================================================================
+# Describes each of the key values pairs in the request and response headers #
+==============================================================================
+# Request Header:                                                            #
+------------------------------------------------------------------------------
+  GET /books/v1/volumes?format=json&q=turing HTTP/1.1
+    GET is the method we are using, meaning we are asking the server to
+    provide us with information. In this case we asking the server for the
+    information at the URI /books/v1/volumes with the parameters format=json
+    and q(title)=turing. HTTP/1.1 means that we are using the HTTP/1.1
+    protocol.
+
+  Accept: application/json, text/plain, */*
+    Accept is the media type that the client is willing to accept as
+    a response. In this case, the client is willing to accept a json object
+    or plain text. It appears that the client is also willing to accept any
+    media type based on the */*, which appears to be a wildcard; however,
+    I do not know if this is accurate or not.
+
+  User-Agent: axios/0.18.0
+    User-Agent is the user-agent string of the client. This allows the
+    server to determine from what program (browser, etc) the client is
+    making the request. This allows the server to ensure it can respond
+    in a compatible way. In this case, we used version 0.18.0 of the
+    axios client to communicate with the server.
+
+  Host: www.googleapis.com
+    This is the domain name to which the request will be routed. The port
+    should also be included after the domain name, however communicating
+    over the default port it can be omitted.
+
+  Connection: close
+    Connection close tells the server that the connection should be closed
+    after the response is sent.
+-----------------------------------------------------------------------------
+# Response Header:                                                          #
+-----------------------------------------------------------------------------
+  expires: Mon, 04 Feb 2019 03:08:31 GMT
+    This gives the date/time that determines when the response is stale. In
+    this case the response is fresh until 8:08 PM MST which was when the
+    response was set.
+
+  date: Mon, 04 Feb 2019 03:08:31 GMT
+    This gives the date/time which the response was sent. As above the
+    response was sent at 8:08 PM MST.
+
+  cache-control: private, max-age=0, must-revalidate, no-transform
+    This defines how the response should be cached, in the network. Private
+    means that no nodes along the network should cache the response only the
+    machine that sent the request. A max-age of 0 means that the response
+    should not be cached. The third parameter, must-revalidate, specifies
+    that any node that has a stale copy of the response must revalidate
+    at the origin server before serving the content. Finally, no-transform,
+    tells all nodes on the network that they are not allowed to modify
+    or transform the content in any way.
+
+  etag: "IUREzboS_XZycecz4xfru1ipYfo/Y53a_FieGsULoEZgwEmYh9G3w18"
+    An ETag is an identifier for a specific version of a resource. In this
+    case, the identifier is
+    IUREzboS_XZycecz4xfru1ipYfo/Y53a_FieGsULoEZgwEmYh9G3w18.
+
+  vary: Origin, X-Origin
+    The vary key specifies how downstream proxies should match future
+    request headers to decide whether the cached response can be used or if
+    a new one must be requested. In this case, I believe that the response
+    specifies that a new one must be requested.
+
+  content-type: application/json; charset=UTF-8
+    This is the media type of the response body. The response is a JSON
+    formatted string, using UTF-8 character encoding.
+
+  x-content-type-options: nosniff
+    This prevents Internet Explorer from altering a response's content-type
+    away from its declared type. This also applies to Google Chrome when
+    downloading extensions
+
+  x-frame-options: SAMEORIGIN
+    X-Frame-Options specify if the browser is allowed to render the
+    information inside of a frame, iframe, embed, or object. The value,
+    SAMEORIGIN, means that the information can only be displayed in a frame
+    on the same origin as the page itself. This prevents the content from
+    being embedded in another site.
+
+  x-xss-protection: 1; mode=block
+    X-XSS-Protection is a feature that stops pages from loading when they
+    detect reflected cross-site scripting attacks. A value of 1 enables
+    this filter and mode=block specifies that if an attack is detected the
+    page is not rendered.
+
+  content-length: 37784
+    The length of the response body, in octets, is the Content-Length. This
+    response's is 37784 octets.
+
+  server: GSE
+    GSE is the server from which the response was sent.
+
+  alt-svc: quic=":443"; ma=2592000; v="44,43,39"
+    This section tells the client alternate services from which the
+    requested information can be obtained. QUIC is the acronym for
+    Quick UDP Internet Connections, which is a new experimental transport
+    layer network protocol. The ":443" specifies that the information the
+    client can communicate using this protocol over port 443. MA, short
+    for max-age, specifies the time in seconds for which the service is
+    considered valid for establishing new connections. As far as I can
+    tell from some internet research, the v refers to which versions
+    of QUIC are supported.
+
+  connection: close
+    Like in the request header connection: close tells the client to close
+    the connection after receiving the response.
+
+-----------------------------------------------------------------------------
